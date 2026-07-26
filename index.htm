@@ -8,7 +8,6 @@
 
 /* ═══════════════════════════════════════════════════════
    Kasiyer + Ürün Yönetimi - Ultra Modern 3D Horizon
-   Tüm hakları saklıdır.
 ═══════════════════════════════════════════════════════ */
 
         * {
@@ -27,11 +26,6 @@
         @keyframes horizonFloat {
             0%, 100% { transform: perspective(1000px) rotateX(0deg) translateY(0); }
             50% { transform: perspective(1000px) rotateX(2deg) translateY(-6px); }
-        }
-
-        @keyframes horizonGlow {
-            0%, 100% { box-shadow: 0 10px 40px rgba(10,77,52,0.08); }
-            50% { box-shadow: 0 20px 60px rgba(10,77,52,0.18); }
         }
 
         .horizon {
@@ -224,7 +218,7 @@
         .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; }
         @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
 
-        /* Sol Panel: Ürünler - Kaydırma yok, tek bakışta */
+        /* Sol Panel: Ürünler - KAYDIRILABİLİR */
         .products-panel {
           background: white;
           border-radius: 20px;
@@ -243,14 +237,39 @@
         .filter-btn.active { background: #0a4d34; color: white; border-color: #0a4d34; }
         .filter-btn:hover { transform: translateY(-1px) scale(1.05); }
 
-        /* Ürün Grid - Sabit yükseklik, kaydırma yok, tüm ürünler görünsün */
+        /* Ürün Grid - KAYDIRMA ÖZELLİKLİ */
         .product-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
           gap: 10px;
-          height: auto;
           max-height: 420px;
-          overflow: hidden;
+          overflow-y: auto;
+          padding-right: 6px;
+        }
+
+        /* Kaydırma çubuğu stilleri */
+        .product-grid::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        .product-grid::-webkit-scrollbar-track {
+          background: #f0f4f2;
+          border-radius: 10px;
+        }
+
+        .product-grid::-webkit-scrollbar-thumb {
+          background: #0a4d34;
+          border-radius: 10px;
+        }
+
+        .product-grid::-webkit-scrollbar-thumb:hover {
+          background: #136b4a;
+        }
+
+        /* Firefox için */
+        .product-grid {
+          scrollbar-width: thin;
+          scrollbar-color: #0a4d34 #f0f4f2;
         }
 
         .product-card {
@@ -313,7 +332,6 @@
         .cart-header h3 { font-size: 16px; color: #0a4d34; }
         .cart-header .adisyonsay { font-size: 12px; color: #6b8a7c; font-weight: 600; }
 
-        /* Sepet Öğeleri - Aşağıda sıralı */
         .cart-items {
           flex: 1;
           overflow-y: auto;
@@ -765,7 +783,7 @@
 <div id="main-application">
     <div class="app-container">
 
-        <!-- HEADER + SEKMELER (Logo kaldırıldı) -->
+        <!-- HEADER + SEKMELER -->
         <div class="app-header horizon">
             <div class="tabs-nav">
                 <button class="tab-btn active" onclick="switchTab('kasiyer')">📊 Kasiyer</button>
@@ -798,7 +816,7 @@
         <div id="page-kasiyer" class="page-content active">
             <div class="main-grid">
 
-                <!-- SOL PANEL: ÜRÜNLER (Tek bakışta, kaydırma yok) -->
+                <!-- SOL PANEL: ÜRÜNLER (Kaydırılabilir) -->
                 <div class="products-panel horizon">
                     <div class="panel-header">
                         <h2>📦 Ürünler</h2>
@@ -818,7 +836,6 @@
                         <span class="adisyonsay" id="adisyon-no">#001</span>
                     </div>
 
-                    <!-- Sepet Öğeleri (Aşağıda sıralı) -->
                     <div class="cart-items" id="cart-items"></div>
 
                     <div class="cart-summary">
@@ -840,7 +857,6 @@
                         </div>
                     </div>
 
-                    <!-- İNDİRİM BÖLÜMÜ -->
                     <div class="discount-section">
                         <div class="discount-label">💰 Ödenmez / İndirim</div>
                         <div class="discount-inputs">
@@ -865,7 +881,6 @@
         <div id="page-urunler" class="page-content">
             <div class="management-container">
 
-                <!-- YENİ ÜRÜN FORMU -->
                 <div class="form-panel horizon">
                     <h3>➕ Yeni Ürün Ekle</h3>
 
@@ -904,7 +919,6 @@
                     </div>
                 </div>
 
-                <!-- ÜRÜN LİSTESİ -->
                 <div class="products-list-panel horizon">
                     <h3>📋 Ürün Listesi</h3>
                     <div class="products-list" id="products-list"></div>
@@ -918,7 +932,6 @@
         ════════════════════════════════════════════════════════ -->
         <div id="page-raporlar" class="page-content">
             
-            <!-- ÖZET KARTLAR -->
             <div class="reports-container">
                 <div class="report-card horizon">
                     <h3>⚡ Anlık Sepet</h3>
@@ -981,7 +994,6 @@
                 </div>
             </div>
 
-            <!-- DETAYLI RAPOR -->
             <div class="detailed-report horizon">
                 <h3>📋 Detaylı Rapor</h3>
                 
@@ -991,7 +1003,6 @@
                     <button class="report-tab-btn" onclick="switchReportTab('urun')">📦 Ürün Bazlı</button>
                 </div>
 
-                <!-- GÜNLÜK DETAY -->
                 <div id="report-gunluk-tab" class="report-tab-content active">
                     <table class="report-table">
                         <thead>
@@ -1001,12 +1012,10 @@
                     </table>
                 </div>
 
-                <!-- AYLIK DETAY -->
                 <div id="report-aylik-tab" class="report-tab-content" style="display:none;">
                     <div id="aylik-detay-content"></div>
                 </div>
 
-                <!-- ÜRÜN BAZLI -->
                 <div id="report-urun-tab" class="report-tab-content" style="display:none;">
                     <table class="report-table">
                         <thead>
@@ -1017,7 +1026,6 @@
                 </div>
             </div>
 
-            <!-- RAPOR İŞLEMLERİ -->
             <div class="settings-card horizon" style="margin-top:20px;">
                 <h3>📥 İşlemler</h3>
                 <div class="export-buttons">
@@ -1930,13 +1938,6 @@ function initApp() {
     renderReports();
     markClean();
 }
-
-// ═══════════════════════════════════════════════════════
-//  BAŞLATMA - Login kontrolü
-// ═══════════════════════════════════════════════════════
-
-// Login sayfası görünür durumda; kullanıcı giriş yapana kadar bekler.
-// initApp() sadece başarılı girişten sonra çağrılır.
 
 </script>
 
